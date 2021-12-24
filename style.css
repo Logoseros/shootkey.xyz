@@ -5,8 +5,8 @@ canvas {
 
 }
 
-para1 {
-  color: #96a6dd;
+.para1 {
+  color: #fff4df;
   text-align: left;
   z-index: 4;
 }
