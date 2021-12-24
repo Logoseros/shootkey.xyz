@@ -20,7 +20,7 @@ camera.position.setZ(30);
 
 //to load your object .glb format
 const loader = new GLTFLoader();
-loader.load('scene.gltf', function(glb) {
+loader.load('basic_model_3js.glb', function(glb) {
   const root = glb.scene;
   scene.add(root);
 })
