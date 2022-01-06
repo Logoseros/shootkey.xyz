@@ -2,11 +2,26 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1
 
 }
 
 .para1 {
-  color: #fff4df;
+  color: #eb9687;
   text-align: left;
-  z-index: 4;
+  font-family:'Gill Sans', 'Gill Sans MT';
+  font-size: 1.8vw;
+  padding-left: 1vw;
+}
+
+a {
+  color: #f7d9d7;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .para1 {
+    font-size: 3vw;
+    padding-right: 2vw;
+  }
 }
