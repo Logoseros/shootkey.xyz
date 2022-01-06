@@ -7,7 +7,7 @@ canvas {
 }
 
 .para1 {
-  color: #eb9687;
+  color: #f76258;
   text-align: left;
   font-family:'Gill Sans', 'Gill Sans MT';
   font-size: 1.8vw;
@@ -19,7 +19,7 @@ a {
   text-decoration: none;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 900px) {
   .para1 {
     font-size: 3vw;
     padding-right: 2vw;
