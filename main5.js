@@ -108,7 +108,8 @@ plane.position.set(0,-0.12,0)
 
 //group1
 const group1 = new THREE.Group()
-group1.add(mesh, plane)
+// group1.add(mesh, plane)
+group1.add(mesh)
 scene.add(group1)
 
 // ### group modification
