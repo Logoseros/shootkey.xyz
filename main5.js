@@ -3,12 +3,13 @@ import * as THREE from 'three';
 //import gsap from 'gsap'
 
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 //Cursor coordinates
-const cursor = {
+/* const cursor = {
     x: 0,
     y: 0
-}
+} */
 
 //sizes variables
 const sizes = {
@@ -17,17 +18,33 @@ const sizes = {
 }
 
 
-window.addEventListener('mousemove', function (event)
+/* window.addEventListener('mousemove', function (event)
 {
     //to get (0,0) at object origin
     cursor.x = event.clientX / sizes.width - 0.5
     cursor.y = event.clientY / sizes.height - 0.5
 })
+ */
 
 //canvas
 const canvas = document.querySelector('#c1')
 //scene
 const scene = new THREE.Scene()
+
+//model loader - glTF
+const loader = new GLTFLoader()
+loader.load('/models/cargohouse.glb',
+  function(gltf)
+  {
+    const mesh = gltf.scene
+    mesh.traverse( function( node) {
+        if (node.isMesh) {node.castShadow = true;}
+    })
+    mesh.scale.set(0.15, 0.15, 0.15)
+    scene.add(mesh)
+  }
+)
+
 
 //geometry from scratch - vertices
 const geometry = new THREE.BufferGeometry()
@@ -55,7 +72,7 @@ const vertices = new Float32Array(count * 3 * 3)
 // * 3 *3 because will need that many entries for 'count' numbers of triangle
 for(let i = 0; i< count * 3 * 3; i++)
 {
-    vertices[i] = (Math.random() - 0.5) * 12
+    vertices[i] = (Math.random() - 0.5) * 100
 }
 
 // adding vertices to geometry attribute
@@ -66,7 +83,7 @@ geometry.setAttribute( 'position', positionsAttribute )
 
 //material
 const material = new THREE.MeshBasicMaterial({ 
-    color: 0xcd0000,
+    color: 0x3743ec,
     wireframe: true
 })
 
@@ -81,13 +98,22 @@ function randomColor() {
 //mesh
 const mesh = new THREE.Mesh(geometry, material)
 
+//plane
+const geometry1 = new THREE.PlaneGeometry( 4, 4 );
+const material1 = new THREE.MeshStandardMaterial( {color: 0x302615, side: THREE.DoubleSide} );
+const plane = new THREE.Mesh( geometry1, material1 );
+
+plane.receiveShadow = true;
+plane.rotateX(Math.PI * 0.5)
+plane.position.set(0,-0.12,0)
+
 //group1
 const group1 = new THREE.Group()
-group1.add(mesh)
+group1.add(mesh, plane)
 scene.add(group1)
 
 // ### group modification
-group1.position.set(0,2,0)
+group1.position.set(0,0,0)
 
 // group1.scale.set(1,1.2,2)
 
@@ -135,15 +161,23 @@ scene.add(camera)
 
 //light
 //not needed for MeshBasicMaterial
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(-5,5,3);
+const pointLight1 = new THREE.PointLight(0xFFA638, 1, 1)
+pointLight1.position.set(0,0.12,-0.2)
 
-scene.add(pointLight)
+pointLight1.castShadow = true;
+
+const pointLight2 = new THREE.PointLight(0xE2FFBE, 0.5, 50)
+pointLight2.position.set(-1.5,2,1)
+
+pointLight2.castShadow = true;
+
+scene.add(pointLight1, pointLight2)
 
 
 //helper
-/* const gridHelper = new THREE.GridHelper()
-scene.add(gridHelper) */
+/* const pointLightHelper1 = new THREE.PointLightHelper( pointLight1, 0.2)
+const pointLightHelper2 = new THREE.PointLightHelper( pointLight2, 0.2)
+scene.add( pointLightHelper1, pointLightHelper2 ) */
 
 //renderer
 const renderer = new THREE.WebGLRenderer({
@@ -152,13 +186,14 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 // renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.shadowMap.enabled = true;
 
 
 //CONTROLS
 //const controls = new OrbitControls(camera, renderer.domElement)
 const controls = new OrbitControls(camera, canvas)
 
-//clock line 1 -- setting object clock and starting it
+//clock line 1 
 const clock = new THREE.Clock()
 
 //gsap animation

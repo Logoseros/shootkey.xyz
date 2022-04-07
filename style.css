@@ -10,8 +10,14 @@ canvas {
   color: #f76258;
   text-align: left;
   font-family:'Gill Sans', 'Gill Sans MT';
-  font-size: 1.8vw;
+  font-size: 1.5vw;
   padding-left: 1vw;
+}
+
+#footer {
+  position: fixed;
+  left: 1vw;
+  bottom: 0.5vw;
 }
 
 a {
