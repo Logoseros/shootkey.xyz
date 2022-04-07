@@ -33,7 +33,7 @@ const scene = new THREE.Scene()
 
 //model loader - glTF
 const loader = new GLTFLoader()
-loader.load('/models/cargohouse.glb',
+loader.load('cargohouse.glb',
   function(gltf)
   {
     const mesh = gltf.scene
@@ -44,7 +44,6 @@ loader.load('/models/cargohouse.glb',
     scene.add(mesh)
   }
 )
-
 
 //geometry from scratch - vertices
 const geometry = new THREE.BufferGeometry()
