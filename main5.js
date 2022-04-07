@@ -33,7 +33,7 @@ const scene = new THREE.Scene()
 
 //model loader - glTF
 const loader = new GLTFLoader()
-loader.load('/public/cargohouse.glb',
+loader.load('/dist/cargohouse.glb',
   function(gltf)
   {
     const mesh = gltf.scene
