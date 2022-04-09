@@ -4,6 +4,7 @@ import * as THREE from 'three';
 
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import ModelX from './models/cargohouse.glb?url';
 
 //Cursor coordinates
 /* const cursor = {
@@ -33,7 +34,7 @@ const scene = new THREE.Scene()
 
 //model loader - glTF
 const loader = new GLTFLoader()
-loader.load('/models/cargohouse.glb',
+loader.load( ModelX,
   function(gltf)
   {
     const mesh = gltf.scene
@@ -108,8 +109,7 @@ plane.position.set(0,-0.12,0)
 
 //group1
 const group1 = new THREE.Group()
-// group1.add(mesh, plane)
-group1.add(mesh)
+group1.add(mesh, plane)
 scene.add(group1)
 
 // ### group modification
